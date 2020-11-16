@@ -38,7 +38,7 @@
 <div class="ins">
   <h1>Rellena tus datos!</h1>
   <div class="form">
-    <form action="./inscripcion.php" method="POST" onsubmit="return validacionForm()">
+    <form action="./good.php" method="POST" onsubmit="return validacionForm()">
       <div class="medi">
         <input type="text" id="nombre" name="nombre" placeholder="Nombre...">
       </div>  
@@ -88,9 +88,12 @@
               $sentencia=$pdo->prepare($query);
               $sentencia->execute();
               $categoria=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-              // $row=$sentencia->rowCount()
+              // $query1="SELECT categoria.id_categoria From categoria WHERE nombre_categoria LIKE ".nombre_categoria."";
+              // $smt=$pdo->prepare($query1);
+              // $smt->execute();
+              // $cate=$smt->fetchAll(PDO::FETCH_ASSOC);
               foreach ($categoria as $row){
-                echo '<option value="'.$row[nombre_categoria].'">'.$row[nombre_categoria].'</option>';
+                echo '<option value="1">'.$row[nombre_categoria].'</option>';
               }
             } catch (Exception $e) {
               $pdo->rollBack();

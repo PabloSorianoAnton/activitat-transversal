@@ -9,7 +9,9 @@
 </head>
 <body>
 
-<button><a href="index.html">INICIO</a></button>
+<h1>Inscirto en la cursa!</h1>
+
+<button><a href="login.html">INICIO</a></button>
 
 
 
