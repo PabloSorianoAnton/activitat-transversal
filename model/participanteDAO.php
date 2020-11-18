@@ -36,9 +36,12 @@ class ParticipanteDAO{
             $stmt->execute();
             //print_r($sentencia);
             $this->pdo->commit();
+            echo "<p style='color: green; font-size: 130%'>Usuario inscrito correctamente!</p>";
+            echo "<button><a href='../view/login.html'>Volver al inicio</button>";
         } catch (Exception $ex){
                 $this->pdo->rollback();
-                echo $ex->getMessage();
+                echo "<p style='color: red; font-size: 130%'>Usuario existente o no válido</p>";
+                // echo $ex->getMessage();
         }
     }
 

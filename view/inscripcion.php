@@ -29,7 +29,7 @@
     <h1 style="LINE-HEIGHT:0px;">BELLVITGE</h1>
     <a href="#" style="margin-left: 31%;">Inicio</a>
     <a href="#">Clasificaciones</a>
-    <a href="./inscipcion.html"">Inscripciones</a>
+    <a href="inscripcion.php">Inscripciones</a>
     <a href="#">Noticias</a>
     <a href="#">Galeria</a>
 </div>
@@ -38,7 +38,7 @@
 <div class="ins">
   <h1>Rellena tus datos!</h1>
   <div class="form">
-    <form action="./good.php" method="POST" onsubmit="return validacionForm()">
+    <form action="./inscripcion.php" method="POST" onsubmit="return validacionForm()">
       <div class="medi">
         <input type="text" id="nombre" name="nombre" placeholder="Nombre...">
       </div>  
@@ -56,7 +56,7 @@
       <div class="medi">
         <input type="email" id="email" name="email" placeholder="Email...">
       </div>
-        <input type="date" id="start" name="edad">
+        <input type="date" id="edad" name="edad">
 
       <br><br>
 
@@ -70,7 +70,7 @@
                 $categoria=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                 // $row=$sentencia->rowCount()
                 foreach ($categoria as $row){
-                  echo '<option value="'.$row[sexo_categoria].'">'.$row[sexo_categoria].'</option>';
+                  echo "<option value=".$row[sexo_categoria].">".$row[sexo_categoria]."</option>";
                 }
               } catch (Exception $e) {
                 $pdo->rollBack();
@@ -84,7 +84,7 @@
       <select id="rango" name="rango">
       <?php
         try{
-              $query="SELECT DISTINCT categoria.nombre_categoria From categoria ORDER BY id_categoria";
+              $query="SELECT DISTINCT id_categoria, nombre_categoria From categoria ORDER BY id_categoria";
               $sentencia=$pdo->prepare($query);
               $sentencia->execute();
               $categoria=$sentencia->fetchAll(PDO::FETCH_ASSOC);
@@ -93,7 +93,7 @@
               // $smt->execute();
               // $cate=$smt->fetchAll(PDO::FETCH_ASSOC);
               foreach ($categoria as $row){
-                echo '<option value="1">'.$row[nombre_categoria].'</option>';
+                echo '<option value='.$row[id_categoria].'>'.$row[nombre_categoria].'</option>';
               }
             } catch (Exception $e) {
               $pdo->rollBack();
