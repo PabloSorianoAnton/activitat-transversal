@@ -42,7 +42,7 @@
       <div class="medi">
         <input type="text" id="nombre" name="nombre" placeholder="Nombre...">
       </div>  
-        <input type="text" id="dni" name="dni" maxlength="9" placeholder="DNI">
+        <input type="text" id="dni" name="dni" maxlength="9" placeholder="DNI" onsubmit="return validardni()">
 
       <br><br>
 
@@ -70,7 +70,7 @@
                 $categoria=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                 // $row=$sentencia->rowCount()
                 foreach ($categoria as $row){
-                  echo "<option value=".$row[sexo_categoria].">".$row[sexo_categoria]."</option>";
+                  echo "<option value=".$row['sexo_categoria'].">".$row['sexo_categoria']."</option>";
                 }
               } catch (Exception $e) {
                 $pdo->rollBack();
@@ -80,27 +80,6 @@
         </select>
 
       <br><br>
-
-      <select id="rango" name="rango">
-      <?php
-        try{
-              $query="SELECT DISTINCT id_categoria, nombre_categoria From categoria ORDER BY id_categoria";
-              $sentencia=$pdo->prepare($query);
-              $sentencia->execute();
-              $categoria=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-              // $query1="SELECT categoria.id_categoria From categoria WHERE nombre_categoria LIKE ".nombre_categoria."";
-              // $smt=$pdo->prepare($query1);
-              // $smt->execute();
-              // $cate=$smt->fetchAll(PDO::FETCH_ASSOC);
-              foreach ($categoria as $row){
-                echo '<option value='.$row[id_categoria].'>'.$row[nombre_categoria].'</option>';
-              }
-            } catch (Exception $e) {
-              $pdo->rollBack();
-              echo $e;
-            }
-      ?>
-    </select>
      </div>
 
      <br>
@@ -114,7 +93,8 @@
       }
     ?>
     </form>
-  <div style="font-size: 150%; color: red;" id="message"></div>
+    <div style="font-size: 150%; color: red;" id="message"></div>
+    <div style="font-size: 150%; color: green;" id="mensaje"></div>
 </div>
 </div>
 

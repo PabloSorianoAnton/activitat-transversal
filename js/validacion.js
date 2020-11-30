@@ -1,3 +1,8 @@
+window.onload = function() {
+    document.getElementById('dni').addEventListener('focusout', validardni);
+    document.getElementById('sexo').addEventListener('focusout', formCategoria);
+}
+
 function validacionForm() {
 
     var nombre = document.getElementById('nombre').value;
@@ -7,18 +12,6 @@ function validacionForm() {
     var email = document.getElementById('email').value;
     var edad = document.getElementById('edad').value;
     var message = document.getElementById('message').value;
-
-    var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
-
-    if (!(/^\d{8}[A-Z]$/.test(dni))) {
-        alert('Debe poner 8 números y una letra (en mayúscula)');
-        return false;
-    }
-
-    if (dni.charAt(8) != letras[(dni.substring(0, 8)) % 23]) {
-        alert('Debe poner 8 números y una letra (en mayúscula)');
-        return false;
-    }
 
     if (nombre == '' && papellido == '' && sapellido == '' && email == '' && edad == '') {
         document.getElementById("message").innerHTML = "Inténtalo de nuevo.";
@@ -279,15 +272,131 @@ function validacionForm() {
     return false;
 }
 
-function validar() {
-    var inputs = document.getElementsByTagName("input");
-    for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].type == 'text' && inputs[i].value == '') {
-            inputs[i].style.borderColor = 'red';
+// function validacionFor() {
+//     // alert('hola');
+//     var inputs = document.getElementsByTagName("input");
+//     for (let i = 0; i < inputs.length; i++) {
+//         if (inputs[i].type == 'text' && inputs[i].value == '') {
+//             inputs[i].style.borderColor = 'red';
+//         } else {
+//             input[i].style.borderColor = 'transparent';
+//         }
+//         // console.log(inputs[i].type);
+//     }
+//     return false;
+// }
+
+/* validarDNI */
+function validardni() {
+    // var dni = document.getElementById('dni');
+    var dni = document.getElementById('dni');
+    if (dni.value.length == 9) {
+        //console.log('DNI válido');
+        var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+        var num = document.getElementById('dni').value.toUpperCase();
+        var prin = num.charAt(0);
+        var letra = num.charAt(8);
+
+        console.log(prin);
+        // alert(letra);
+        if (prin == "X") {
+            var numero = num.replace("X", "0");
+        } else if (prin == "Y") {
+            var numero = num.replace("Y", "1");
+        } else if (prin == "Z") {
+            var numero = num.replace("Z", "2");
         } else {
-            inputs[i].style.borderColor = 'black';
+            var numero = num;
         }
-        // console.log(inputs[i].type);
+
+        console.log(numero);
+        var numeros = numero.substring(0, numero.length - 1);
+
+        console.log(numeros);
+
+        var letraCalculada = letras[numeros % 23];
+
+        // alert(letraCalculada);
+
+        if (letraCalculada != letra) {
+            // alert('mal');
+            dni.style.border = "solid red 1px";
+        } else {
+            // alert('bien');
+            dni.style.border = "solid green 1px";
+        }
+
+        // dni.style.border = "solid green 5px";
+
+    } else {
+        dni.style.border = "solid red 1px";
     }
-    return false;
+
+}
+
+/* Mostrar categoría a partir de la fecha de nacimiento */
+function formCategoria() {
+    var categoria = document.getElementById('sexo').value;
+    var fechaNaci = document.getElementById('edad').value;
+    var message = document.getElementById('mensaje').value;
+    var fnac = new Date(fechaNaci);
+    var actual = new Date();
+    var edad = actual.getFullYear() - fnac.getFullYear();
+    // alert(categoria);
+    if (categoria == "Hombre" && edad >= 0 && edad <= 6) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 0 a 6 años para hombres.";
+    }
+    if (categoria == "Hombre" && edad >= 7 && edad <= 14) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 7 a 14 años para hombres.";
+    }
+    if (categoria == "Hombre" && edad >= 15 && edad <= 20) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 15 a 20 años para hombres.";
+    }
+    if (categoria == "Hombre" && edad >= 21 && edad <= 30) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 21 a 30 años para hombres.";
+    }
+    if (categoria == "Hombre" && edad >= 31 && edad <= 60) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 31 a 60 años para hombres.";
+    }
+    if (categoria == "Hombre" && edad >= 61 && edad <= 99) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 61 a 99 años para hombres.";
+    }
+
+    if (categoria == "Mujer" && edad >= 0 && edad <= 6) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 0 a 6 años para mujeres.";
+    }
+    if (categoria == "Mujer" && edad >= 7 && edad <= 14) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 7 a 14 años para mujeres.";
+    }
+    if (categoria == "Mujer" && edad >= 15 && edad <= 20) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 15 a 20 años para mujeres.";
+    }
+    if (categoria == "Mujer" && edad >= 21 && edad <= 30) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 21 a 30 años para mujeres.";
+    }
+    if (categoria == "Mujer" && edad >= 31 && edad <= 60) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 31 a 60 años para mujeres.";
+    }
+    if (categoria == "Mujer" && edad >= 61 && edad <= 99) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 61 a 99 años para mujeres.";
+    }
+
+    if (categoria == "Discapacidad" && edad >= 0 && edad <= 6) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 0 a 6 años para discapacitados.";
+    }
+    if (categoria == "Discapacidad" && edad >= 7 && edad <= 14) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 7 a 14 años para discapacitados.";
+    }
+    if (categoria == "Discapacidad" && edad >= 15 && edad <= 20) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 15 a 20 años para discapacitados.";
+    }
+    if (categoria == "Discapacidad" && edad >= 21 && edad <= 30) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 21 a 30 años para discapacitados.";
+    }
+    if (categoria == "Discapacidad" && edad >= 31 && edad <= 60) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 31 a 60 años para discapacitados.";
+    }
+    if (categoria == "Discapacidad" && edad >= 61 && edad <= 99) {
+        document.getElementById('mensaje').innerHTML = "Se va a inscribir en la categoria de 61 a 99 años para discapacitados.";
+    }
 }
